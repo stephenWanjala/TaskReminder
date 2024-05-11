@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.taskreminder.data.repository.TaskRepository;
 import com.example.taskreminder.domain.model.Task;
+import com.example.taskreminder.utils.ReminderUtils;
 
 import java.util.List;
 
@@ -27,13 +28,17 @@ public class TaskViewModel extends AndroidViewModel {
 
     public void insertTask(Task task) {
         repository.insertTask(task);
+        ReminderUtils.scheduleReminder(getApplication(), task);
     }
 
     public void updateTask(Task task) {
         repository.updateTask(task);
+        ReminderUtils.cancelReminder(getApplication(), task);
+        ReminderUtils.scheduleReminder(getApplication(), task);
     }
 
     public void deleteTask(Task task) {
         repository.deleteTask(task);
+        ReminderUtils.cancelReminder(getApplication(), task);
     }
 }
