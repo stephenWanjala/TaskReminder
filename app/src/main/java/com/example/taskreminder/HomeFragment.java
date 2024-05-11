@@ -1,5 +1,7 @@
 package com.example.taskreminder;
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NamedNavArgumentKt;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.taskreminder.data.TaskAdapter;
@@ -54,6 +59,17 @@ public class HomeFragment extends Fragment {
 //        Task newTask = new Task(0,"Example Task", "This is an example task", false, System.currentTimeMillis()+1000000);
 //        taskViewModel.insertTask(newTask);
     }
+
+  private  void handleTaskClick() {
+    taskAdapter.setOnTaskClickListener(task -> {
+        // Handle task click
+
+        // You can navigate to another fragment and pass the taskid as an argument
+
+
+    });
+}
+
 
     @Override
     public void onDestroyView() {

@@ -2,11 +2,7 @@ package com.example.taskreminder;
 
 import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,6 +13,8 @@ import com.example.taskreminder.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,10 +33,17 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show());
+//int currentDestinationId = Objects.requireNonNull(navController.getCurrentDestination()).getId();
+       binding.fab.setOnClickListener(view -> {
+    int currentDestinationId = Objects.requireNonNull(navController.getCurrentDestination()).getId();
+    if (currentDestinationId == R.id.TasksListFragment) {
+        // If the current destination is TasksListFragment, navigate to AddTaskFragment
+        navController.navigate(R.id.action_Tasks_listFragment_to_AddTaskFragment);
+    } else if (currentDestinationId == R.id.AddTaskFragmnt) {
+        // If the current destination is AddTaskFragment, save the task
+        // You need to implement the saveTask() method
+    }
+});
     }
 
     @Override

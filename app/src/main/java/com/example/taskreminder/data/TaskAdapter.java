@@ -1,7 +1,6 @@
 package com.example.taskreminder.data;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -32,12 +31,17 @@ public class TaskAdapter extends ListAdapter<Task, TaskAdapter.TaskViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = getItem(position);
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onTaskClick(task);
+            }
+        });
         holder.bind(task);
     }
 
     static class TaskViewHolder extends RecyclerView.ViewHolder {
 
-        private TaskItemBinding binding;
+        private final TaskItemBinding binding;
 
         TaskViewHolder(@NonNull TaskItemBinding binding) {
             super(binding.getRoot());
@@ -65,5 +69,15 @@ public class TaskAdapter extends ListAdapter<Task, TaskAdapter.TaskViewHolder> {
             return Objects.equals(oldItem, newItem);
         }
     };
+
+    public interface OnTaskClickListener {
+        void onTaskClick(Task task);
+    }
+
+    private OnTaskClickListener listener = null;
+
+    public void setOnTaskClickListener(OnTaskClickListener listener) {
+        this.listener = listener;
+    }
 }
 

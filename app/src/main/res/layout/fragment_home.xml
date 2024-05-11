@@ -10,7 +10,7 @@
         android:id="@+id/clHomeFragmentRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="2dp">
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -31,9 +31,10 @@
             android:id="@+id/tvEmptyState"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No tasks scheduled"
+            android:text="@string/no_tasks_scheduled"
             android:textSize="18sp"
             android:visibility="gone"
+            android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
