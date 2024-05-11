@@ -1,8 +1,11 @@
 package com.example.taskreminder.domain.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import java.util.Objects;
 
 @Entity(tableName = "tasks")
 public class Task {
@@ -72,5 +75,19 @@ public class Task {
                 ", completed=" + completed +
                 ", dueDateMillis=" + dueDateMillis +
                 '}';
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Task task = (Task) obj;
+
+        if (id != task.id) return false;
+        if (completed != task.completed) return false;
+        if (dueDateMillis != task.dueDateMillis) return false;
+        if (!Objects.equals(title, task.title)) return false;
+        return Objects.equals(description, task.description);
     }
 }
