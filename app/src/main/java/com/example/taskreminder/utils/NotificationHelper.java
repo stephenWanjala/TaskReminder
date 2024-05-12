@@ -35,7 +35,7 @@ public class NotificationHelper {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle("Task Reminder")
+                .setContentTitle("Your Task " + taskTitle + " is due soon!")
                 .setContentText(taskTitle)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(taskDescription))
                 .setAutoCancel(true)
