@@ -59,8 +59,8 @@ public class HomeFragment extends Fragment {
             taskAdapter.submitList(tasks); // Submit the new list of tasks to ListAdapter
         });
 
-//         Example: Insert a new task
-//        Task newTask = new Task(0,"Example Task", "This is an example task", false, System.currentTimeMillis()+1000000);
+//         Example: Insert a new task now plus 12mins
+//        Task newTask = new Task(0,"Example Task", "This is an example task", false, System.currentTimeMillis()+720000);
 //        taskViewModel.insertTask(newTask);
     }
 

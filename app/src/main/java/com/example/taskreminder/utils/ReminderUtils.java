@@ -12,25 +12,28 @@ import com.example.taskreminder.receivers.ReminderBroadcastReceiver;
 
 public class ReminderUtils {
 
-    public static void scheduleReminder(Context context, Task task) {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, ReminderBroadcastReceiver.class);
-        intent.putExtra("task_title", task.getTitle()); // Pass task title as extra data
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) task.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    public static void scheduleReminder(Context context, Task task, long reminderBeforeDue) {
+    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+    Intent intent = new Intent(context, ReminderBroadcastReceiver.class);
+    intent.putExtra("task_title", task.getTitle()); // Pass task title as extra data
+    intent.putExtra("task_description", task.getDescription()); // Pass task title as extra data
+    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) task.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // Schedule the alarm
-        if (alarmManager != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                if (alarmManager.canScheduleExactAlarms()) {
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, task.getDueDateMillis(), pendingIntent);
-                } else {
-                    Toast.makeText(context, "App does not have permission to schedule exact alarms", Toast.LENGTH_SHORT).show();
-                }
+    long reminderTime = task.getDueDateMillis() - reminderBeforeDue;
+
+    // Schedule the alarm
+    if (alarmManager != null) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (alarmManager.canScheduleExactAlarms()) {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, reminderTime, pendingIntent);
             } else {
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, task.getDueDateMillis(), pendingIntent);
+                Toast.makeText(context, "App does not have permission to schedule exact alarms", Toast.LENGTH_SHORT).show();
             }
+        } else {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, reminderTime, pendingIntent);
         }
     }
+}
 
     public static void cancelReminder(Context context, Task task) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

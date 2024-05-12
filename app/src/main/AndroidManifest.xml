@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
+        android:name=".TaskReminderApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -27,6 +28,7 @@
             </intent-filter>
         </activity>
         <receiver android:name=".receivers.ReminderBroadcastReceiver"/>
+        <service android:name=".utils.ReminderService"/>
 
     </application>
 

@@ -27,14 +27,16 @@ public class TaskViewModel extends AndroidViewModel {
     }
 
     public void insertTask(Task task) {
+//        10 minutes before the task's due date and time
+        var  beforehand = 600000;
         repository.insertTask(task);
-        ReminderUtils.scheduleReminder(getApplication(), task);
+        ReminderUtils.scheduleReminder(getApplication(), task, beforehand);
     }
 
     public void updateTask(Task task) {
         repository.updateTask(task);
         ReminderUtils.cancelReminder(getApplication(), task);
-        ReminderUtils.scheduleReminder(getApplication(), task);
+        ReminderUtils.scheduleReminder(getApplication(), task, 600000);
     }
 
     public void deleteTask(Task task) {

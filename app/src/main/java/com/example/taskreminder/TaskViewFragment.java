@@ -6,13 +6,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.lifecycle.ViewModelProvider;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.taskreminder.TaskViewViewModel;
 import com.example.taskreminder.databinding.FragmentTaskViewBinding;
 
 import java.util.Objects;
