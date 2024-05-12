@@ -62,6 +62,8 @@ public class HomeFragment extends Fragment {
 //         Example: Insert a new task now plus 12mins
 //        Task newTask = new Task(0,"Example Task", "This is an example task", false, System.currentTimeMillis()+720000);
 //        taskViewModel.insertTask(newTask);
+
+        binding.fab.setOnClickListener(v -> findNavController(this).navigate(R.id.action_TasksListFragment_to_taskViewFragment));
     }
 
  private  void handleTaskClick() {
