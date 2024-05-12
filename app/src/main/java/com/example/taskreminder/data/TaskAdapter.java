@@ -1,9 +1,11 @@
 package com.example.taskreminder.data;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +38,20 @@ public class TaskAdapter extends ListAdapter<Task, TaskAdapter.TaskViewHolder> {
                 listener.onTaskClick(task);
             }
         });
+        // Check if the task is completed
+        if (task.isCompleted()) {
+            holder.binding.getRoot().setCardBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.completed_color));
+            holder.binding.getRoot().setCheckable(true);
+            holder.binding.getRoot().setChecked(true);
+        }
+        // Check if the task is overdue
+        else if (task.getDueDateMillis() < System.currentTimeMillis()) {
+            holder.binding.getRoot().setCardBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.overdue_color));
+        }
+        // Reset to default color for other tasks
+        else {
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+        }
         holder.bind(task);
     }
 

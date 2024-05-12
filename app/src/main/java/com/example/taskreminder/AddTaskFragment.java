@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.taskreminder.databinding.FragmentAddTaskBinding;
 import com.example.taskreminder.domain.model.Task;
@@ -25,6 +26,7 @@ public class AddTaskFragment extends Fragment {
 
     private FragmentAddTaskBinding binding;
     private Calendar dueDateCalendar = Calendar.getInstance();
+    private TaskViewModel taskViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,8 +38,7 @@ public class AddTaskFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
+       taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         binding.iconClickable.setOnClickListener(v -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
                     (view1, year, month, dayOfMonth) -> {
@@ -78,7 +79,7 @@ public class AddTaskFragment extends Fragment {
             String taskDescription = binding.taskDescription.getText().toString();
             long dueDate = dueDateCalendar.getTimeInMillis();
             Task task = new Task(0,taskTitle, taskDescription,false, dueDate);
-            TaskViewModel taskViewModel = new TaskViewModel(requireActivity().getApplication());
+
             taskViewModel.insertTask(task);
             Toast.makeText(getContext(), "Task saved", Toast.LENGTH_SHORT).show();
             findNavController(this).navigateUp();

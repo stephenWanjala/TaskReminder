@@ -13,7 +13,7 @@
 
         <action
             android:id="@+id/action_Tasks_listFragment_to_AddTaskFragment"
-            app:destination="@id/AddTaskFragmnt" />
+            app:destination="@id/AddTaskFragment" />
         <action
             android:id="@+id/action_TasksListFragment_to_taskViewFragment"
             app:destination="@id/taskViewFragment" >
@@ -24,7 +24,7 @@
         </action>
     </fragment>
     <fragment
-        android:id="@+id/AddTaskFragmnt"
+        android:id="@+id/AddTaskFragment"
         android:name="com.example.taskreminder.AddTaskFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_add_task">

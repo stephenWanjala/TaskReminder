@@ -22,7 +22,11 @@ public class Task {
         this.title = title;
         this.description = description;
         this.completed = completed;
-        this.dueDateMillis = dueDateMillis;
+        if (Objects.nonNull(dueDateMillis)) {
+            this.dueDateMillis = dueDateMillis;
+        } else {
+            this.dueDateMillis = System.currentTimeMillis()+ (60L * 60L * 1000L) ; // due 1hrs
+        }
     }
 
     public long getId() {

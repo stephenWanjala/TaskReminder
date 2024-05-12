@@ -10,9 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NamedNavArgumentKt;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,7 +60,7 @@ public class HomeFragment extends Fragment {
 //        Task newTask = new Task(0,"Example Task", "This is an example task", false, System.currentTimeMillis()+720000);
 //        taskViewModel.insertTask(newTask);
 
-        binding.fab.setOnClickListener(v -> findNavController(this).navigate(R.id.action_TasksListFragment_to_taskViewFragment));
+        binding.fab.setOnClickListener(v -> findNavController(this).navigate(R.id.AddTaskFragment));
     }
 
  private  void handleTaskClick() {
