@@ -96,4 +96,11 @@ public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceStat
         findNavController(this).navigateUp();
     });
 }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }
