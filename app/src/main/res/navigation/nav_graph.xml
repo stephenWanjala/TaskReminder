@@ -16,7 +16,12 @@
             app:destination="@id/AddTaskFragmnt" />
         <action
             android:id="@+id/action_TasksListFragment_to_taskViewFragment"
-            app:destination="@id/taskViewFragment" />
+            app:destination="@id/taskViewFragment" >
+            <argument
+                android:name="taskId"
+                app:argType="long"
+                android:defaultValue="-1L" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/AddTaskFragmnt"
@@ -35,8 +40,8 @@
         tools:layout="@layout/fragment_task_view" >
         <argument
             android:name="taskId"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            app:argType="long"
+            android:defaultValue="-1L" />
         <action
             android:id="@+id/action_taskViewFragment_to_TasksListFragment"
             app:destination="@id/TasksListFragment"

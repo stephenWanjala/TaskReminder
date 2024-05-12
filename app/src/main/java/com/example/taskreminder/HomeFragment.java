@@ -13,7 +13,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NamedNavArgumentKt;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taskreminder.data.TaskAdapter;
 import com.example.taskreminder.databinding.FragmentHomeBinding;
@@ -38,6 +40,8 @@ public class HomeFragment extends Fragment {
         taskAdapter = new TaskAdapter();
         binding.rvTasks.setAdapter(taskAdapter);
         binding.rvTasks.setLayoutManager(new LinearLayoutManager(requireContext()));
+        handleTaskClick();
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(binding.rvTasks);
 
 
 
@@ -55,21 +59,35 @@ public class HomeFragment extends Fragment {
             taskAdapter.submitList(tasks); // Submit the new list of tasks to ListAdapter
         });
 
-        // Example: Insert a new task
+//         Example: Insert a new task
 //        Task newTask = new Task(0,"Example Task", "This is an example task", false, System.currentTimeMillis()+1000000);
 //        taskViewModel.insertTask(newTask);
     }
 
-  private  void handleTaskClick() {
+ private  void handleTaskClick() {
     taskAdapter.setOnTaskClickListener(task -> {
         // Handle task click
-
+        Bundle args = new Bundle();
+        args.putLong("taskId", task.getId()); // Use "taskId" instead of "taskid"
+        findNavController(this).navigate(R.id.action_TasksListFragment_to_taskViewFragment, args);
         // You can navigate to another fragment and pass the taskid as an argument
-
-
     });
 }
 
+ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,  ItemTouchHelper.RIGHT) {
+
+    @Override
+    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+        return false;
+    }
+
+    @Override
+    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+        int position = viewHolder.getAdapterPosition();
+        Task task = taskAdapter.getCurrentList().get(position);
+        taskViewModel.deleteTask(task);
+    }
+};
 
     @Override
     public void onDestroyView() {

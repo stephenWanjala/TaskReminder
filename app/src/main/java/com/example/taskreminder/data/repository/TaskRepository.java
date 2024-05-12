@@ -35,4 +35,8 @@ public class TaskRepository {
     public void deleteTask(Task task) {
         TaskDatabase.databaseWriteExecutor.execute(() -> taskDao.delete(task));
     }
+
+    public LiveData<Task> getTask(long taskId) {
+        return taskDao.getTask(taskId);
+    }
 }

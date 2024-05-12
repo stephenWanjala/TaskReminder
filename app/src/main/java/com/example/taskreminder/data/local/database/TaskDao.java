@@ -24,4 +24,7 @@ public interface TaskDao {
 
     @Query("SELECT * FROM tasks ORDER BY dueDateMillis DESC")
     LiveData<List<Task>> getAllTasks();
+
+    @Query("SELECT * FROM tasks WHERE id = :taskId")
+    LiveData<Task> getTask(long taskId);
 }
