@@ -44,7 +44,6 @@ public class NotificationHelper {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null) {
-            createNotificationChannel(context);
             notificationManager.notify(1, builder.build());
         }
     }
